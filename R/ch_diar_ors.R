@@ -1,6 +1,4 @@
-
-
-#'
+#'CH_DIAT_C_ORS
 #' @param KRdata  data.frame from survryPrev::getDHSdata
 #'
 #' @return A partially processed data.frame that will be used in  survryPrev::getDHSindicator. The whole function can be used as a parameter in survryPrev::getDHSindicator
