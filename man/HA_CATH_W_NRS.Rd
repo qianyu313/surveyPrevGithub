@@ -11,11 +11,19 @@ HA_CATH_W_NRS(IRdata)
 }
 \value{
 A partially processed data.frame that will be used in survryPrev::getDHSindicator. The whole function can be used as a parameter in survryPrev::getDHSindicator
+
+A partially processed data.frame that will be used in survryPrev::getDHSindicator. The whole function can be used as a parameter in survryPrev::getDHSindicator
+
+A partially processed data.frame that will be used in survryPrev::getDHSindicator. The whole function can be used as a parameter in survryPrev::getDHSindicator
 }
 \description{
 HA_CATH_W_NRS
 }
 \examples{
+\dontrun{
+}
+\dontrun{
+}
 \dontrun{
 }
 }

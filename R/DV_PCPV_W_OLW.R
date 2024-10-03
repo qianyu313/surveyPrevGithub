@@ -1,4 +1,4 @@
-##'DV_AFSV_W_A10
+##'DV_PCPV_W_OLW
 #' @param IRdata  data.frame from survryPrev::getDHSdata
 #'
 #' @return A partially processed data.frame that will be used in survryPrev::getDHSindicator. The whole function can be used as a parameter in survryPrev::getDHSindicator
@@ -8,17 +8,7 @@
 #' \dontrun{
 #' }
 #' @export
-##'DV_AFSV_W_A10
-#' @param IRdata  data.frame from survryPrev::getDHSdata
-#'
-#' @return A partially processed data.frame that will be used in survryPrev::getDHSindicator. The whole function can be used as a parameter in survryPrev::getDHSindicator
-#'
-#' @author Miaolei Bao, Yunhan Wu, Qianyu Dong
-#' @examples
-#' \dontrun{
-#' }
-#' @export
-DV_AFSV_W_A10 <- function(IRdata){
+DV_PCPV_W_OLW <- function(IRdata){
 # /*****************************************************************************************************
 # Program: 			DV_viol.R
 # Purpose: 			Code domestic violence indicators from the IR file
@@ -255,176 +245,8 @@ IRdata <- IRdata %>%
   set_value_labels(dv_phy_other_inlaw = c("Yes" = 1, "No"=0)) %>%
   set_variable_labels(dv_phy_other_inlaw = "Person committing physical violence: other-in-law")
 
-# //Teacher
-IRdata <- IRdata %>%
-  mutate(dv_phy_teacher =
-           case_when(
-             d115v==1 | d118v==1 ~ 1, 
-             dv_phy==1 ~ 0 )) %>% 
-  set_value_labels(dv_phy_teacher = c("Yes" = 1, "No"=0)) %>%
-  set_variable_labels(dv_phy_teacher = "Person committing physical violence: teacher")
-
-# //Employer/someone at work
-IRdata <- IRdata %>%
-  mutate(dv_phy_atwork =
-           case_when(
-             d115w==1 | d118w==1 ~ 1, 
-             dv_phy==1 ~ 0 )) %>% 
-  set_value_labels(dv_phy_atwork = c("Yes" = 1, "No"=0)) %>%
-  set_variable_labels(dv_phy_atwork = "Person committing physical violence: employer/someone at work")
-
-# //Police/soldier
-IRdata <- IRdata %>%
-  mutate(dv_phy_police =
-           case_when(
-             d115xe==1 | d118xe==1 ~ 1, 
-             dv_phy==1 ~ 0 )) %>% 
-  set_value_labels(dv_phy_police = c("Yes" = 1, "No"=0)) %>%
-  set_variable_labels(dv_phy_police = "Person committing physical violence: police/soldier")
-
-# //Other
-IRdata <- IRdata %>%
-  mutate(dv_phy_other =
-           case_when(
-             d115x==1 | d118x==1 ~ 1, 
-             dv_phy==1 ~ 0 )) %>% 
-  set_value_labels(dv_phy_other = c("Yes" = 1, "No"=0)) %>%
-  set_variable_labels(dv_phy_other = "Person committing physical violence: other")
-
-## **EXPERIENCED SEXUAL VIOLENCE ##
-
-# //Ever 
-IRdata <- IRdata %>%
-  mutate(dv_sex =
-           case_when(
-             d105h>0 | d105i>0 | d105k>0  ~ 1, # violence by current partner
-             d130b>0  ~ 1,  # violence by former partner
-             d124==1  ~ 1, # violence by anyone other than partner
-             d125==1 ~ 1, # forced to perform unwanted acts 
-             v044==1  ~ 0 )) %>% 
-  set_value_labels(dv_sex = c("Yes" = 1, "No"=0)) %>%
-  set_variable_labels(dv_sex = "Ever experienced sexual violence")
-
-# //In the last 12 months
-IRdata <- IRdata %>%
-  mutate(dv_sex_12m =
-           case_when(
-             d105h %in% c(1,2) | d105i %in% c(1,2) | d105k %in% c(1,2)  ~ 1, 
-             d130b==1 | d124==1  ~ 1,  
-             v044==1  ~ 0 )) %>% 
-  set_value_labels(dv_sex_12m = c("Yes" = 1, "No"=0)) %>%
-  set_variable_labels(dv_sex_12m = "Experienced sexual violence in past 12 mos")
-
-# //In the last 12 months by frequency (often or sometimes)
-IRdata <- IRdata %>%
-  mutate(dv_sex_12m_f =
-           case_when(
-             d105h==1 | d105i==1 | d105k==1 | d117a==1   ~ 1 ,
-             d105h==2 | d105i==2 | d105k==2 | d117a==2 ~ 2 ,
-             v044==1  ~ 0 )) %>% 
-  set_value_labels(dv_sex_12m_f = c("Sometimes"=2, "Often" = 1, "No"=0)) %>%
-  set_variable_labels(dv_sex_12m_f = "Experienced sexual violence in the past 12 mos, frequency")
-
-# **EXPERIENCED PHYSICAL AND SEXUAL VIOLENCE
-# //Ever
-IRdata <- IRdata %>%
-  mutate(dv_phy_sex =
-           case_when(
-             dv_phy==1 & dv_sex==1 ~ 1 ,
-             v044==1  ~ 0 )) %>% 
-  set_value_labels(dv_phy_sex = c("Yes" = 1, "No"=0)) %>%
-  set_variable_labels(dv_phy_sex = "Ever experienced physical AND sexual violence")
-
-# //In the last 12 months
-IRdata <- IRdata %>%
-  mutate(dv_phy_sex_12m =
-           case_when(
-             dv_phy_12m==1 & dv_sex_12m==1 ~ 1 ,
-             v044==1  ~ 0 )) %>% 
-  set_value_labels(dv_phy_sex_12m = c("Yes" = 1, "No"=0)) %>%
-  set_variable_labels(dv_phy_sex_12m = "Experienced physical AND sexual violence in the last 12 months")
-
-# //In the last 12 months by frequency (often or sometimes)
-IRdata <- IRdata %>%
-  mutate(dv_phy_sex_12m_f =
-           case_when(
-             dv_phy_12m==1 & dv_sex_12m==1  ~ 1 ,
-             dv_phy_12m==2 & dv_sex_12m==2 ~ 2 ,
-             v044==1  ~ 0 )) %>% 
-  set_value_labels(dv_phy_sex_12m_f = c("Sometimes"=2, "Often" = 1, "No"=0)) %>%
-  set_variable_labels(dv_phy_sex_12m_f = "Experienced physical AND sexual violence in the last 12 months, frequency")
-
-# **EXPERIENCED PHYSICAL OR SEXUAL VIOLENCE
-# //Ever
-IRdata <- IRdata %>%
-  mutate(dv_phy_sex_any =
-           case_when(
-             dv_phy==1 | dv_sex==1 ~ 1 ,
-             v044==1  ~ 0 )) %>% 
-  set_value_labels(dv_phy_sex_any = c("Yes" = 1, "No"=0)) %>%
-  set_variable_labels(dv_phy_sex_any = "Ever experienced physical OR sexual violence")
-
-# //In the last 12 months
-IRdata <- IRdata %>%
-  mutate(dv_phy_sex_any_12m =
-           case_when(
-             dv_phy_12m==1 | dv_sex_12m==1 ~ 1 ,
-             v044==1  ~ 0 )) %>% 
-  set_value_labels(dv_phy_sex_any_12m = c("Yes" = 1, "No"=0)) %>%
-  set_variable_labels(dv_phy_sex_any_12m = "Ever experienced physical OR sexual violence in the last 12 months")
-
-# //In the last 12 months by frequency (often or sometimes)
-IRdata <- IRdata %>%
-  mutate(dv_phy_sex_any_12m_f =
-           case_when(
-             dv_phy_12m==1 | dv_sex_12m==1  ~ 1 ,
-             dv_phy_12m==2 | dv_sex_12m==2 ~ 2 ,
-             v044==1  ~ 0 )) %>% 
-  set_value_labels(dv_phy_sex_any_12m_f = c("Sometimes"=2, "Often" = 1, "No"=0)) %>%
-  set_variable_labels(dv_phy_sex_any_12m_f = "Experienced physical OR sexual violence in the last 12 months, frequency")
-
-# //Which type
-IRdata <- IRdata %>%
-  mutate(dv_viol_type =
-           case_when(
-             dv_phy==1 & dv_sex==0 ~ 1 ,
-             dv_phy==0 & dv_sex==1 ~ 2 ,
-             dv_phy==1 & dv_sex==1 ~ 3 ,
-             dv_phy_sex_any==1  ~ 0 )) %>% 
-  set_value_labels(dv_viol_type = c("Both"=3, "Sexual only"=2, "Physical only" = 1, "None"=0)) %>%
-  set_variable_labels(dv_viol_type = "Ever experienced physical only, sexual only, or both")
-
-# //Physical only
-IRdata <- IRdata %>%
-  mutate(dv_phy_only =
-           case_when(
-             dv_phy==1 & dv_sex==0 ~ 1 ,
-             v044==1  ~ 0 )) %>% 
-  set_value_labels(dv_phy_only = c("Yes" = 1, "No"=0)) %>%
-  set_variable_labels(dv_phy_only = "Ever experienced only physical violence")
-
-# //Sexual only
-IRdata <- IRdata %>%
-  mutate(dv_sex_only =
-           case_when(
-             dv_phy==0 & dv_sex==1 ~ 1 ,
-             v044==1  ~ 0 )) %>% 
-  set_value_labels(dv_sex_only = c("Yes" = 1, "No"=0)) %>%
-  set_variable_labels(dv_sex_only = "Ever experienced only sexual violence")
-
-# **AGE EXPERIENCED SEXUAL VIOLENCE ** #
-
-# //By age 10
-IRdata <- IRdata %>%
-  mutate(dv_sex_age_10 =
-           case_when(
-             d126<10 ~ 1 ,
-             v044==1  ~ 0 )) %>% 
-  set_value_labels(dv_sex_age_10 = c("Yes" = 1, "No"=0)) %>%
-  set_variable_labels(dv_sex_age_10 = "First experienced sexual violence by age 10")
 
 
-
-colnames(IRdata)[colnames(IRdata) == 'dv_sex_age_10'] <- 'value'
+colnames(IRdata)[colnames(IRdata) == 'dv_phy_other_inlaw'] <- 'value'
 return(IRdata)
 }

@@ -11,11 +11,15 @@ DV_AFSV_W_A12(IRdata)
 }
 \value{
 A partially processed data.frame that will be used in survryPrev::getDHSindicator. The whole function can be used as a parameter in survryPrev::getDHSindicator
+
+A partially processed data.frame that will be used in survryPrev::getDHSindicator. The whole function can be used as a parameter in survryPrev::getDHSindicator
 }
 \description{
 DV_AFSV_W_A12
 }
 \examples{
+\dontrun{
+}
 \dontrun{
 }
 }

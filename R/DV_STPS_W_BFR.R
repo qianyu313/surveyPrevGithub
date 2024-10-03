@@ -1,4 +1,4 @@
-##'DV_AFSV_W_A10
+##'DV_STPS_W_BFR
 #' @param IRdata  data.frame from survryPrev::getDHSdata
 #'
 #' @return A partially processed data.frame that will be used in survryPrev::getDHSindicator. The whole function can be used as a parameter in survryPrev::getDHSindicator
@@ -8,17 +8,7 @@
 #' \dontrun{
 #' }
 #' @export
-##'DV_AFSV_W_A10
-#' @param IRdata  data.frame from survryPrev::getDHSdata
-#'
-#' @return A partially processed data.frame that will be used in survryPrev::getDHSindicator. The whole function can be used as a parameter in survryPrev::getDHSindicator
-#'
-#' @author Miaolei Bao, Yunhan Wu, Qianyu Dong
-#' @examples
-#' \dontrun{
-#' }
-#' @export
-DV_AFSV_W_A10 <- function(IRdata){
+DV_STPS_W_BFR <- function(IRdata){
 # /*****************************************************************************************************
 # Program: 			DV_viol.R
 # Purpose: 			Code domestic violence indicators from the IR file
@@ -423,8 +413,244 @@ IRdata <- IRdata %>%
   set_value_labels(dv_sex_age_10 = c("Yes" = 1, "No"=0)) %>%
   set_variable_labels(dv_sex_age_10 = "First experienced sexual violence by age 10")
 
+# //By age 12
+IRdata <- IRdata %>%
+  mutate(dv_sex_age_12 =
+           case_when(
+             d126<12 ~ 1 ,
+             v044==1  ~ 0 )) %>% 
+  set_value_labels(dv_sex_age_12 = c("Yes" = 1, "No"=0)) %>%
+  set_variable_labels(dv_sex_age_12 = "First experienced sexual violence by age 12")
+
+# //By age 15
+IRdata <- IRdata %>%
+  mutate(dv_sex_age_15 =
+           case_when(
+             d126<15 ~ 1 ,
+             v044==1  ~ 0 )) %>% 
+  set_value_labels(dv_sex_age_15 = c("Yes" = 1, "No"=0)) %>%
+  set_variable_labels(dv_sex_age_15 = "First experienced sexual violence by age 15")
+
+# //By age 18
+IRdata <- IRdata %>%
+  mutate(dv_sex_age_18 =
+           case_when(
+             d126<18 ~ 1 ,
+             v044==1  ~ 0 )) %>% 
+  set_value_labels(dv_sex_age_18 = c("Yes" = 1, "No"=0)) %>%
+  set_variable_labels(dv_sex_age_18 = "First experienced sexual violence by age 18")
+
+# //By age 22
+IRdata <- IRdata %>%
+  mutate(dv_sex_age_22 =
+           case_when(
+             d126<22 ~ 1 ,
+             v044==1  ~ 0 )) %>% 
+  set_value_labels(dv_sex_age_22 = c("Yes" = 1, "No"=0)) %>%
+  set_variable_labels(dv_sex_age_22 = "First experienced sexual violence by age 22")
+
+# **PERSONS COMMITTING SEXUAL VIOLENCE ** #
+
+# //Current partner
+IRdata <- IRdata %>%
+  mutate(dv_sex_hus_curr =
+           case_when(
+             v502==1 & (d105h>0 | d105i>0 |d105k>0 | d127==1) ~ 1 ,
+             dv_sex==1 ~ 0 )) %>% 
+  set_value_labels(dv_sex_hus_curr = c("Yes" = 1, "No"=0)) %>%
+  set_variable_labels(dv_sex_hus_curr = "Person committing sexual violence: current husband/partner")
+
+# //Former partner
+IRdata <- IRdata %>%
+  mutate(dv_sex_hus_form =
+           case_when(
+             v502>0 & d130b>0 ~ 1, 
+             v502==1 & d127==2 & v503>1 ~ 1, 
+             v502==2 & (d105h>0 | d105i>0 |d105k>0 | d127==2) ~ 1 ,
+             dv_sex==1 ~ 0 )) %>% 
+  set_value_labels(dv_sex_hus_form = c("Yes" = 1, "No"=0)) %>%
+  set_variable_labels(dv_sex_hus_form = "Person committing sexual violence: former husband/partner")
+
+# //Current or former boyfriend
+IRdata <- IRdata %>%
+  mutate(dv_sex_bf =
+           case_when(
+             (v502==1 & d127==2 & v503==1) | (v502==0 & (d127==1 | d127==2))~ 1, 
+             d127==3 ~ 1 ,
+             dv_sex==1 ~ 0 )) %>% 
+  set_value_labels(dv_sex_bf = c("Yes" = 1, "No"=0)) %>%
+  set_variable_labels(dv_sex_bf = "Person committing sexual violence: current/former boyfriend")
+
+# //Father step-father
+IRdata <- IRdata %>%
+  mutate(dv_sex_father =
+           case_when(
+             d127==4 ~ 1 ,
+             dv_sex==1 ~ 0 )) %>% 
+  set_value_labels(dv_sex_father = c("Yes" = 1, "No"=0)) %>%
+  set_variable_labels(dv_sex_father = "Person committing sexual violence: father/step-father")
+
+# //Brother
+IRdata <- IRdata %>%
+  mutate(dv_sex_brother =
+           case_when(
+             d127==5 ~ 1 ,
+             dv_sex==1 ~ 0 )) %>% 
+  set_value_labels(dv_sex_brother = c("Yes" = 1, "No"=0)) %>%
+  set_variable_labels(dv_sex_brother = "Person committing sexual violence: bother")
+
+# //Other relative
+IRdata <- IRdata %>%
+  mutate(dv_sex_other_rel =
+           case_when(
+             d127==6 ~ 1 ,
+             dv_sex==1 ~ 0 )) %>% 
+  set_value_labels(dv_sex_other_rel = c("Yes" = 1, "No"=0)) %>%
+  set_variable_labels(dv_sex_other_rel = "Person committing sexual violence: other relative")
+
+# //In-law
+IRdata <- IRdata %>%
+  mutate(dv_sex_inlaw =
+           case_when(
+             d127==7 ~ 1 ,
+             dv_sex==1 ~ 0 )) %>% 
+  set_value_labels(dv_sex_inlaw = c("Yes" = 1, "No"=0)) %>%
+  set_variable_labels(dv_sex_inlaw = "Person committing sexual violence: an in-law")
+
+# //Friend or acquaintance
+IRdata <- IRdata %>%
+  mutate(dv_sex_friend =
+           case_when(
+             d127==8 ~ 1 ,
+             dv_sex==1 ~ 0 )) %>% 
+  set_value_labels(dv_sex_friend = c("Yes" = 1, "No"=0)) %>%
+  set_variable_labels(dv_sex_friend = "Person committing sexual violence: own friend/acquaintance")
+
+# //Friend of the family
+IRdata <- IRdata %>%
+  mutate(dv_sex_friend_fam =
+           case_when(
+             d127==9 ~ 1 ,
+             dv_sex==1 ~ 0 )) %>% 
+  set_value_labels(dv_sex_friend_fam = c("Yes" = 1, "No"=0)) %>%
+  set_variable_labels(dv_sex_friend_fam = "Person committing sexual violence: a family friend")
+
+# //Teacher
+IRdata <- IRdata %>%
+  mutate(dv_sex_teacher =
+           case_when(
+             d127==10 ~ 1 ,
+             dv_sex==1 ~ 0 )) %>% 
+  set_value_labels(dv_sex_teacher = c("Yes" = 1, "No"=0)) %>%
+  set_variable_labels(dv_sex_teacher = "Person committing sexual violence: teacher")
+
+# //Employer/someone at work
+IRdata <- IRdata %>%
+  mutate(dv_sex_atwork =
+           case_when(
+             d127==11 ~ 1 ,
+             dv_sex==1 ~ 0 )) %>% 
+  set_value_labels(dv_sex_atwork = c("Yes" = 1, "No"=0)) %>%
+  set_variable_labels(dv_sex_atwork = "Person committing sexual violence: employer/someone at work")
+
+# //Police/soldier
+IRdata <- IRdata %>%
+  mutate(dv_sex_police =
+           case_when(
+             d127==12 ~ 1 ,
+             dv_sex==1 ~ 0 )) %>% 
+  set_value_labels(dv_sex_police = c("Yes" = 1, "No"=0)) %>%
+  set_variable_labels(dv_sex_police = "Person committing sexual violence: police/soldier")
+
+# //Priest/religious leader
+IRdata <- IRdata %>%
+  mutate(dv_sex_relig =
+           case_when(
+             d127==13 ~ 1 ,
+             dv_sex==1 ~ 0 )) %>% 
+  set_value_labels(dv_sex_relig = c("Yes" = 1, "No"=0)) %>%
+  set_variable_labels(dv_sex_relig = "Person committing sexual violence: a priest or religious leader")
+
+# //Stranger
+IRdata <- IRdata %>%
+  mutate(dv_sex_stranger =
+           case_when(
+             d127==14 ~ 1 ,
+             dv_sex==1 ~ 0 )) %>% 
+  set_value_labels(dv_sex_stranger = c("Yes" = 1, "No"=0)) %>%
+  set_variable_labels(dv_sex_stranger = "Person committing sexual violence: stranger")
+
+# //Other
+IRdata <- IRdata %>%
+  mutate(dv_sex_other =
+           case_when(
+             d127==96 ~ 1 ,
+             dv_sex==1 ~ 0 )) %>% 
+  set_value_labels(dv_sex_other = c("Yes" = 1, "No"=0)) %>%
+  set_variable_labels(dv_sex_other = "Person committing sexual violence: other")
+
+# //Missing
+IRdata <- IRdata %>%
+  mutate(dv_sex_missing =
+           case_when(
+             d127==99 ~ 1 ,
+             dv_sex==1 ~ 0 )) %>% 
+  set_value_labels(dv_sex_missing = c("Yes" = 1, "No"=0)) %>%
+  set_variable_labels(dv_sex_missing = "Person committing sexual violence: missing")
+
+# ********************************************************************************
+# **Seeking help after violence
+# ********************************************************************************
+
+# //Sought help
+IRdata <- IRdata %>%
+  mutate(dv_help_seek =
+           case_when(
+             d119y==0 ~ 1 ,
+             d119y==1 & d128==1 ~ 2 ,
+             d119y==1 & d128==0 ~ 3,
+             dv_phy_sex_any==1 ~ 0 )) %>% 
+  set_value_labels(dv_help_seek = c("Sought help"=1, "Didn't seek help, told someone"=2, "Didn't seek help, didn't tell someone"=3)) %>%
+  set_variable_labels(dv_help_seek = "Sought help to stop violence")
+
+# //Sources of help: own family
+IRdata <- IRdata %>%
+  mutate(dv_help_fam =
+           case_when(
+             d119b>0 | d119c>0 | d119d>0 | d119e>0 | d119f>0 | d119g>0 | d119h>0 |d119m>0 | d119n>0  ~ 1 ,
+             dv_help_seek==1 ~ 0 )) %>% 
+  set_value_labels(dv_help_fam = c("Yes" = 1, "No"=0)) %>%
+  set_variable_labels(dv_help_fam = "Sought help from own family")
+
+# //Sources of help: husband's family
+IRdata <- IRdata %>%
+  mutate(dv_help_hfam =
+           case_when(
+             d119i>0 | d119o>0 | d119p>0 | d119q>0 | d119r>0   ~ 1 ,
+             dv_help_seek==1 ~ 0 )) %>% 
+  set_value_labels(dv_help_hfam = c("Yes" = 1, "No"=0)) %>%
+  set_variable_labels(dv_help_hfam = "Sought help from husband's family")
+
+# //Sources of help: husband
+IRdata <- IRdata %>%
+  mutate(dv_help_husb =
+           case_when(
+             d119j>0 ~ 1 ,
+             dv_help_seek==1 ~ 0 )) %>% 
+  set_value_labels(dv_help_husb = c("Yes" = 1, "No"=0)) %>%
+  set_variable_labels(dv_help_husb = "Sought help from husband")
+
+# //Sources of help: boyfriend
+IRdata <- IRdata %>%
+  mutate(dv_help_bf =
+           case_when(
+             d119k>0 | d119l>0 ~ 1 ,
+             dv_help_seek==1 ~ 0 )) %>% 
+  set_value_labels(dv_help_bf = c("Yes" = 1, "No"=0)) %>%
+  set_variable_labels(dv_help_bf = "Sought help from boyfriend")
 
 
-colnames(IRdata)[colnames(IRdata) == 'dv_sex_age_10'] <- 'value'
+
+colnames(IRdata)[colnames(IRdata) == 'dv_help_bf'] <- 'value'
 return(IRdata)
 }

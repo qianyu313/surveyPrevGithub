@@ -8,6 +8,16 @@
 #' \dontrun{
 #' }
 #' @export
+##'DV_AFSV_W_A12
+#' @param IRdata  data.frame from survryPrev::getDHSdata
+#'
+#' @return A partially processed data.frame that will be used in survryPrev::getDHSindicator. The whole function can be used as a parameter in survryPrev::getDHSindicator
+#'
+#' @author Miaolei Bao, Yunhan Wu, Qianyu Dong
+#' @examples
+#' \dontrun{
+#' }
+#' @export
 DV_AFSV_W_A12 <- function(IRdata){
 # /*****************************************************************************************************
 # Program: 			DV_viol.R

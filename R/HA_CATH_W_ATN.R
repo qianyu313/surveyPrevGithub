@@ -8,6 +8,26 @@
 #' \dontrun{
 #' }
 #' @export
+##'HA_CATH_W_ATN
+#' @param IRdata  data.frame from survryPrev::getDHSdata
+#'
+#' @return A partially processed data.frame that will be used in survryPrev::getDHSindicator. The whole function can be used as a parameter in survryPrev::getDHSindicator
+#'
+#' @author Miaolei Bao, Yunhan Wu, Qianyu Dong
+#' @examples
+#' \dontrun{
+#' }
+#' @export
+##'HA_CATH_W_ATN
+#' @param IRdata  data.frame from survryPrev::getDHSdata
+#'
+#' @return A partially processed data.frame that will be used in survryPrev::getDHSindicator. The whole function can be used as a parameter in survryPrev::getDHSindicator
+#'
+#' @author Miaolei Bao, Yunhan Wu, Qianyu Dong
+#' @examples
+#' \dontrun{
+#' }
+#' @export
 HA_CATH_W_ATN <- function(IRdata){
 # ******************************************************************************
 # Program: 			  HK_TEST_CONSL.R
