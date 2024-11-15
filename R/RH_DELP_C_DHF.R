@@ -1,4 +1,4 @@
-##'AH_TOBC_W_OTH
+##'RH_DELP_C_DHF
 #' @param Rdata  data.frame from survryPrev::getDHSdata
 #'
 #' @return A partially processed data.frame that will be used in survryPrev::getDHSindicator. The whole function can be used as a parameter in survryPrev::getDHSindicator

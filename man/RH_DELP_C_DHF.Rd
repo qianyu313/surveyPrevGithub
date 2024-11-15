@@ -2,18 +2,18 @@
 % Please edit documentation in R/RH_DELP_C_DHF.R
 \name{RH_DELP_C_DHF}
 \alias{RH_DELP_C_DHF}
-\title{AH_TOBC_W_OTH}
+\title{RH_DELP_C_DHF}
 \usage{
 RH_DELP_C_DHF(Rdata)
 }
 \arguments{
-\item{IRdata}{data.frame from survryPrev::getDHSdata}
+\item{Rdata}{data.frame from survryPrev::getDHSdata}
 }
 \value{
 A partially processed data.frame that will be used in survryPrev::getDHSindicator. The whole function can be used as a parameter in survryPrev::getDHSindicator
 }
 \description{
-AH_TOBC_W_OTH
+RH_DELP_C_DHF
 }
 \examples{
 \dontrun{

@@ -2,18 +2,18 @@
 % Please edit documentation in R/FP_EVUM_W_MOD.R
 \name{FP_EVUM_W_MOD}
 \alias{FP_EVUM_W_MOD}
-\title{AH_TOBC_W_OTH}
+\title{FP_EVUM_W_MOD}
 \usage{
 FP_EVUM_W_MOD(Rdata)
 }
 \arguments{
-\item{IRdata}{data.frame from survryPrev::getDHSdata}
+\item{Rdata}{data.frame from survryPrev::getDHSdata}
 }
 \value{
 A partially processed data.frame that will be used in survryPrev::getDHSindicator. The whole function can be used as a parameter in survryPrev::getDHSindicator
 }
 \description{
-AH_TOBC_W_OTH
+FP_EVUM_W_MOD
 }
 \examples{
 \dontrun{
