@@ -15,7 +15,7 @@ CM_ECMR_C_NNF<- function(Rdata){
   nmr.year=5
   BRdata <- Rdata%>%
     mutate(wt = v005/1000000)%>%
-    mutate(bo10 = Rdata$v008-5*nmr.year-b3)%>%
+    mutate(bo10 = Rdata$v008-12*nmr.year-b3)%>%
     filter(bo10<0)
 
   BRdata$value<- ifelse(BRdata$b7==0, 1, 0)

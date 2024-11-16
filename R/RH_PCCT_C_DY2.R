@@ -1,4 +1,4 @@
-##'RH_PCCT_C_D12 Newborn's first postnatal checkup: 1-2 days
+##'RH_PCCT_C_DY2 Newborn's first postnatal checkup: 1-2 days
 ##' rh_pnc_nb_2days in github
 ##' IR
 #' @param Rdata  data.frame from survryPrev::getDHSdata
@@ -10,7 +10,7 @@
 #' \dontrun{
 #' }
 #' @export
-RH_PCCT_C_D12<- function(Rdata){
+RH_PCCT_C_DY2<- function(Rdata){
 
   IRdata=Rdata
   # age of child. If b19_01 is not available in the data use v008 - b3_01
@@ -250,21 +250,21 @@ RH_PCCT_C_D12<- function(Rdata){
 
       #//PNC within 2days for newborn
       IRdata <- IRdata %>%
-        mutate(RH_PCCT_C_D12 =
+        mutate(RH_PCCT_C_DY2 =
                  case_when(
                    rh_pnc_nb_timing %in% c(1,2,3,4) ~ 1,
                    rh_pnc_nb_timing %in% c(0,5,9) ~ 0,
                    bidx_01!=1 | age>=24 ~ 99 )) %>%
-        replace_with_na(replace = list(RH_PCCT_C_D12 = c(99))) %>%
-        set_value_labels(RH_PCCT_C_D12 = c("No Visit within 2 days" = 0, "visit within 2 days" = 1 )) %>%
-        set_variable_labels(RH_PCCT_C_D12 = "PNC check within two days for newborn")
+        replace_with_na(replace = list(RH_PCCT_C_DY2 = c(99))) %>%
+        set_value_labels(RH_PCCT_C_DY2 = c("No Visit within 2 days" = 0, "visit within 2 days" = 1 )) %>%
+        set_variable_labels(RH_PCCT_C_DY2 = "PNC check within two days for newborn")
 
       # //PNC provider for newborn
       # This is country specific, please check table in final report
       IRdata <- IRdata %>%
         mutate(rh_pnc_nb_pv =
                  case_when(
-                   ((age<24 & rh_pnc_nb_timing<9 & rh_pnc_nb_timing>0) & (m72_1==0 | RH_PCCT_C_D12==0)) | (age<24 & RH_PCCT_C_D12==0) ~ 0,
+                   ((age<24 & rh_pnc_nb_timing<9 & rh_pnc_nb_timing>0) & (m72_1==0 | RH_PCCT_C_DY2==0)) | (age<24 & RH_PCCT_C_DY2==0) ~ 0,
                    (age<24 & rh_pnc_nb_timing<9 & rh_pnc_nb_timing>0) &  m72_1 ==11 ~ 1,
                    (age<24 & rh_pnc_nb_timing<9 & rh_pnc_nb_timing>0) &  m72_1 %in% c(12,13) ~ 2,
                    (age<24 & rh_pnc_nb_timing<9 & rh_pnc_nb_timing>0) &  m72_1 %in% c(14,15) ~ 3,
@@ -332,14 +332,14 @@ RH_PCCT_C_D12<- function(Rdata){
 
       # //PNC within 2days for newborn
       IRdata <- IRdata %>%
-        mutate(RH_PCCT_C_D12 =
+        mutate(RH_PCCT_C_DY2 =
                  case_when(
                    rh_pnc_nb_timing %in% c(1,2,3,4) ~ 1,
                    rh_pnc_nb_timing %in% c(0,5,9) ~ 0,
                    age>=24 ~ 99 )) %>%
-        replace_with_na(replace = list(RH_PCCT_C_D12 = c(99))) %>%
-        set_value_labels(RH_PCCT_C_D12 = c("No Visit within 2 days" = 0, "visit within 2 days" = 1 )) %>%
-        set_variable_labels(RH_PCCT_C_D12 = "PNC check within two days for newborn")
+        replace_with_na(replace = list(RH_PCCT_C_DY2 = c(99))) %>%
+        set_value_labels(RH_PCCT_C_DY2 = c("No Visit within 2 days" = 0, "visit within 2 days" = 1 )) %>%
+        set_variable_labels(RH_PCCT_C_DY2 = "PNC check within two days for newborn")
 
       # //PNC provider for newborn
       # This is country specific and could be different for different surveys, please check footnote of the table for this indicator in the final report.
@@ -347,14 +347,14 @@ RH_PCCT_C_D12<- function(Rdata){
       IRdata <- IRdata %>%
         mutate(pnc_nb_pv_home =
                  case_when(
-                   age<24 & RH_PCCT_C_D12==1 & m72_1==0 ~ 0,
-                   age<24 & RH_PCCT_C_D12==0 ~ 0,
-                   age<24 & RH_PCCT_C_D12==1 & m72_1 ==11 ~ 1,
-                   age<24 & RH_PCCT_C_D12==1 & m72_1 %in% c(12,13) ~ 2,
-                   age<24 & RH_PCCT_C_D12==1 & m72_1 %in% c(14,15) ~ 3,
-                   age<24 & RH_PCCT_C_D12==1 & m72_1>=16 & m72_1<=90 ~ 4,
-                   age<24 & RH_PCCT_C_D12==1 & m72_1==96 ~ 5,
-                   age<24 & RH_PCCT_C_D12==1 & !(m72_1 %in% seq(11:96)) ~ 9 ,
+                   age<24 & RH_PCCT_C_DY2==1 & m72_1==0 ~ 0,
+                   age<24 & RH_PCCT_C_DY2==0 ~ 0,
+                   age<24 & RH_PCCT_C_DY2==1 & m72_1 ==11 ~ 1,
+                   age<24 & RH_PCCT_C_DY2==1 & m72_1 %in% c(12,13) ~ 2,
+                   age<24 & RH_PCCT_C_DY2==1 & m72_1 %in% c(14,15) ~ 3,
+                   age<24 & RH_PCCT_C_DY2==1 & m72_1>=16 & m72_1<=90 ~ 4,
+                   age<24 & RH_PCCT_C_DY2==1 & m72_1==96 ~ 5,
+                   age<24 & RH_PCCT_C_DY2==1 & !(m72_1 %in% seq(11:96)) ~ 9 ,
                    age>=24 ~ 99 )) %>%
         replace_with_na(replace = list(pnc_nb_pv_home = c(99))) %>%
         set_value_labels(rh_pnc_nb_timing = c("No check" = 0, "Doctor" = 1, "Nurse/Midwife"=2, "Other skilled provider"=3, "Non-skilled provider"=4, "Other"=5, "Don't know or missing"=9))
@@ -363,14 +363,14 @@ RH_PCCT_C_D12<- function(Rdata){
       IRdata <- IRdata %>%
         mutate(pnc_nb_pv_hf =
                  case_when(
-                   age<24 & RH_PCCT_C_D12==1 & m76_1==0 ~ 0,
-                   age<24 & RH_PCCT_C_D12==0 ~ 0,
-                   age<24 & RH_PCCT_C_D12==1 & m76_1 ==11 ~ 1,
-                   age<24 & RH_PCCT_C_D12==1 & m76_1 %in% c(12,13) ~ 2,
-                   age<24 & RH_PCCT_C_D12==1 & m76_1 %in% c(14,15) ~ 3,
-                   age<24 & RH_PCCT_C_D12==1 & m76_1>=16 & m76_1<=90 ~ 4,
-                   age<24 & RH_PCCT_C_D12==1 & m76_1==96 ~ 5,
-                   age<24 & RH_PCCT_C_D12==1 & !(m76_1 %in% seq(11:96)) ~ 9 ,
+                   age<24 & RH_PCCT_C_DY2==1 & m76_1==0 ~ 0,
+                   age<24 & RH_PCCT_C_DY2==0 ~ 0,
+                   age<24 & RH_PCCT_C_DY2==1 & m76_1 ==11 ~ 1,
+                   age<24 & RH_PCCT_C_DY2==1 & m76_1 %in% c(12,13) ~ 2,
+                   age<24 & RH_PCCT_C_DY2==1 & m76_1 %in% c(14,15) ~ 3,
+                   age<24 & RH_PCCT_C_DY2==1 & m76_1>=16 & m76_1<=90 ~ 4,
+                   age<24 & RH_PCCT_C_DY2==1 & m76_1==96 ~ 5,
+                   age<24 & RH_PCCT_C_DY2==1 & !(m76_1 %in% seq(11:96)) ~ 9 ,
                    age>=24 ~ 99 )) %>%
         replace_with_na(replace = list(pnc_nb_pv_hf = c(99))) %>%
         set_value_labels(pnc_nb_pv_hf = c("No check" = 0, "Doctor" = 1, "Nurse/Midwife"=2, "Other skilled provider"=3, "Non-skilled provider"=4, "Other"=5, "Don't know or missing"=9))
@@ -378,7 +378,7 @@ RH_PCCT_C_D12<- function(Rdata){
       #Combine two PNC provider variables
       IRdata <- IRdata %>%
         mutate(rh_pnc_nb_pv =
-                 ifelse(pnc_nb_pv_hf==9 & RH_PCCT_C_D12==1 & age<24,pnc_nb_pv_home,pnc_nb_pv_hf))  %>%
+                 ifelse(pnc_nb_pv_hf==9 & RH_PCCT_C_DY2==1 & age<24,pnc_nb_pv_home,pnc_nb_pv_hf))  %>%
         set_variable_labels(rh_pnc_nb_pv = "Provider for newborns's PNC check")
 
     }
@@ -390,11 +390,11 @@ RH_PCCT_C_D12<- function(Rdata){
     # replace indicators as NA
     IRdata <- IRdata %>%
       mutate( rh_pnc_nb_timing =NA) %>%
-      mutate( RH_PCCT_C_D12 =NA) %>%
+      mutate( RH_PCCT_C_DY2 =NA) %>%
       mutate( rh_pnc_nb_pv =NA)
   }
 
-  colnames(IRdata)[colnames(IRdata) == 'RH_PCCT_C_D12'] <- 'value'
+  colnames(IRdata)[colnames(IRdata) == 'RH_PCCT_C_DY2'] <- 'value'
 
   return(IRdata)
   }

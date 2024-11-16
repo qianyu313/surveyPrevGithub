@@ -3,7 +3,7 @@
 \name{CH_FEVT_C_ADV}
 \alias{CH_FEVT_C_ADV}
 \title{CH_FEVT_C_ADV Children with fever for whom advice or treatment was sought
-ml_fev_care in github
+ch_fev_care in github ml_fev_care should produce the same data
 KR}
 \usage{
 CH_FEVT_C_ADV(Rdata)
@@ -16,7 +16,7 @@ A partially processed data.frame that will be used in survryPrev::getDHSindicato
 }
 \description{
 CH_FEVT_C_ADV Children with fever for whom advice or treatment was sought
-ml_fev_care in github
+ch_fev_care in github ml_fev_care should produce the same data
 KR
 }
 \examples{
