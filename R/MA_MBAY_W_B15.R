@@ -18,6 +18,7 @@ MA_MBAY_W_B15<- function(Rdata){
 
   # First marriage by age 18
   IRdata <- Rdata %>%
+    filter(v013 %in% c(2) )%>%
     mutate(MA_MBAY_W_B15 = case_when(v511>=0 & v511<15 ~ 1, TRUE ~ 0)) %>%
     set_value_labels(MA_MBAY_W_B15 = yesno) %>%
     set_variable_labels(MA_MBAY_W_B15 = "First marriage by age 15")
